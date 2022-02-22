@@ -26,4 +26,5 @@ provider "cortex" {
 
 - **address** (String) Address of the Cortex cluster
 - **api_key** (String, Sensitive) API key, used as basic auth password.
+- **backend** (String) Backend type to interact with: <cortex|loki>
 - **tenant_id** (String) Tenant ID, passed as X-Org-ScopeID HTTP header.

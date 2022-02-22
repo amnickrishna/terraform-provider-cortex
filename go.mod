@@ -12,6 +12,7 @@ replace github.com/bradfitz/gomemcache => github.com/themihai/gomemcache v0.0.0-
 
 require (
 	github.com/grafana/cortex-tools v0.10.4
+	github.com/hashicorp/terraform-plugin-docs v0.5.1 // indirect
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.9.0
 	github.com/mitchellh/go-testing-interface v1.14.1 // indirect
 	github.com/prometheus/prometheus v1.8.2-0.20210510213326-e313ffa8abf6
