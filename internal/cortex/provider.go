@@ -28,6 +28,7 @@ const (
 	EnvCortexAddress  = "CORTEX_ADDRESS"
 	EnvCortexApiKey   = "CORTEX_API_KEY"
 	EnvCortexTenantId = "CORTEX_TENANT_ID"
+	EnvCortexUser = "CORTEX_API_USER"
 )
 
 // Provider -
@@ -46,6 +47,13 @@ func Provider() *schema.Provider {
 				Sensitive:   true,
 				DefaultFunc: schema.EnvDefaultFunc(EnvCortexApiKey, ""),
 				Description: "API key, used as basic auth password.",
+			},
+			"user": {
+				Type:        schema.TypeString,
+				Optional:    true,
+				Sensitive:   true,
+				DefaultFunc: schema.EnvDefaultFunc(EnvCortexUser, ""),
+				Description: "used as basic auth user.",
 			},
 			"tenant_id": {
 				Type:        schema.TypeString,
@@ -74,13 +82,14 @@ func providerConfigure(ctx context.Context, d *schema.ResourceData) (interface{}
 		apiKey          string
 		defaultTenantID string
 		backend         string
+		user            string
 	)
 	if data, ok := d.GetOk("api_key"); ok {
 		apiKey = data.(string)
 	}
 	if data, ok := d.GetOk("tenant_id"); ok {
 		defaultTenantID = data.(string)
-	}
+	}	
 	if data, ok := d.GetOk("backend"); ok {
 		backend = data.(string)
 	}
@@ -95,6 +104,7 @@ func providerConfigure(ctx context.Context, d *schema.ResourceData) (interface{}
 			Key:     apiKey,
 			Address: address,
 			ID:      tenantID,
+			User:    user,
 		}
 		if backend == "loki" {
 			clientConfig.UseLegacyRoutes = true
