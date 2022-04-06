@@ -93,7 +93,9 @@ func providerConfigure(ctx context.Context, d *schema.ResourceData) (interface{}
 	if data, ok := d.GetOk("backend"); ok {
 		backend = data.(string)
 	}
-
+	if data, ok := d.GetOk("user"); ok {
+		user = data.(string)
+	}
 	var diags diag.Diagnostics
 
 	var f cortexClientFunc = func(tenantID string) (*client.CortexClient, error) {
